@@ -8,12 +8,13 @@ using static SoundSystem;
 public class SoundSystem : MonoBehaviour
 {
     public static SoundSystem instance;
-    
-    public AudioSource audioBackground;
-    
-    public AudioSource audioSourceCoin;
-    public AudioSource audioSourceFlap;
-    public AudioSource audioSourceHit;
+
+    [SerializeField] AudioSource audioBackground;
+
+    [SerializeField] AudioSource audioSourceScore;
+    [SerializeField] AudioSource audioSourceFlap;
+    [SerializeField] AudioSource audioSourceHit;
+    [SerializeField] AudioSource audioSourceCoin;
     private void Awake()
     {
         if (SoundSystem.instance == null)
@@ -25,9 +26,9 @@ public class SoundSystem : MonoBehaviour
         }
     }
 
-    public void PlayCoin()
+    public void PlayScore()
     {
-       audioSourceCoin.Play();
+       audioSourceScore.Play();
     }
     public void PlayFlap()
     {
@@ -37,6 +38,11 @@ public class SoundSystem : MonoBehaviour
     {
         audioBackground.Stop();
         audioSourceHit.Play();
+    }
+
+    public void PlayCoin()
+    {
+        audioSourceCoin.Play();
     }
     void OnDestroy()
     {

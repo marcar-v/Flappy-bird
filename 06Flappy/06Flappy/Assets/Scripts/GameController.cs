@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
-    
+
     public GameObject gameOverText;
     public bool gameOver;
 
@@ -16,6 +16,9 @@ public class GameController : MonoBehaviour
 
     private int score;
     public Text scoreText;
+
+    public int itemScore = 5;
+
 
     private int currentHighScore;
     private int highScore;
@@ -46,10 +49,17 @@ public class GameController : MonoBehaviour
         {
             score++;
             scoreText.text = "Score: " + score;
-            SoundSystem.instance.PlayCoin();
+            SoundSystem.instance.PlayScore();
         
             UpdateHighScore();
         }
+    }
+
+    public void ItemScore()
+    { 
+        score = score + itemScore;
+        scoreText.text = "Score: " + score;
+        SoundSystem.instance.PlayCoin();
     }
     public void UpdateHighScore()
     {
