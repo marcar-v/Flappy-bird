@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1233400565736252374}
   m_Layer: 0
   m_Name: Coin
-  m_TagString: Untagged
+  m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.3202875, y: -0.97450316, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9adb35b77c4d6d4999fd5dca0acfccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coin: {fileID: 100000}
 --- !u!50 &1169653782713823846
 Rigidbody2D:
   serializedVersion: 4

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class RestartMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject gameOverMenu;
+    [SerializeField] GameObject gameOverMenu;
     public void Resume()
     {
         gameOverMenu.SetActive(false);

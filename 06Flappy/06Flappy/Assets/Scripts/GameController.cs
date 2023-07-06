@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,22 +10,24 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
 
-    public GameObject gameOverText;
+    [SerializeField] GameObject gameOverText;
     public bool gameOver;
 
     public float scrollSpeed = -1.5f;
 
     private int score;
-    public Text scoreText;
+    [SerializeField] Text scoreText;
 
-    public int itemScore = 5;
+    [SerializeField] int itemScore = 5;
 
 
-    private int currentHighScore;
-    private int highScore;
-    public Text highScoreText;
-    
-    
+    [SerializeField] Text highScoreText;
+
+    public float time = 0;
+    public bool gameTime = true;
+    [SerializeField] Text bestTimeText;
+    private GameTime gameTimeScript;
+
     private void Awake()
     {
         if (GameController.instance == null)
@@ -41,6 +44,7 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         highScoreText.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
+        bestTimeText.text = PlayerPrefs.GetFloat("BestTime", 0).ToString();
     }
 
     public void BirdScored()
@@ -52,6 +56,7 @@ public class GameController : MonoBehaviour
             SoundSystem.instance.PlayScore();
         
             UpdateHighScore();
+            UpdateBestTime();
         }
     }
 
@@ -70,18 +75,23 @@ public class GameController : MonoBehaviour
             highScoreText.text = "High Score: " + PlayerPrefs.GetInt("HighScore");
         }
     }
+    public void UpdateBestTime()
+    {
+        float minutes = time / 60;
+        float seconds = Mathf.Floor(time % 60);
+        if (time > PlayerPrefs.GetFloat("BestTime"))
+        {
+            PlayerPrefs.SetFloat("BestTime", time);
+            PlayerPrefs.Save();
+            bestTimeText.text = "Best time:" + minutes.ToString("00") + ":" + seconds.ToString("00");
+            //bestTimeText.text = "Best time: " + PlayerPrefs.GetFloat("BestTime");
+        }
+    }
     public void BirdDie()
     {
         highScoreText.text = "High Score: " + PlayerPrefs.GetInt("HighScore");
+        bestTimeText.text = "Best time: " + PlayerPrefs.GetFloat("BestTime");
         gameOverText.SetActive(true);
         gameOver = true;
-    }
-
-    private void OnDestroy()
-    {
-        if (GameController.instance == this)
-        {
-            GameController.instance = null;
-        }
     }
 }

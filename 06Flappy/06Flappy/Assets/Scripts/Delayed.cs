@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Delayed : MonoBehaviour
 {
-    public GameObject restartButton;
-    public GameObject homeButton;
-    public GameObject gameOverText;
-    public GameObject betterLuckText;
-    public GameObject highScoreText;
+    [SerializeField] GameObject restartButton;
+    [SerializeField] GameObject homeButton;
+    [SerializeField] GameObject gameOverText;
+    [SerializeField] GameObject betterLuckText;
+    [SerializeField] GameObject highScoreText;
+    [SerializeField] GameObject bestTimeText;
 
-    public float delayGameOver = 1f;
-    public float delayButtons = 1.5f;
+    [SerializeField] float delayGameOver = 1f;
+    [SerializeField] float delayButtons = 1.5f;
     
-    // Start is called before the first frame update
     void OnEnable()
     {
         Invoke("EnableFlapToRestart", delayButtons);
@@ -26,6 +26,7 @@ public class Delayed : MonoBehaviour
         gameOverText.SetActive(true);
         betterLuckText.SetActive(true);
         highScoreText.SetActive(true);
+        bestTimeText.SetActive(true);
     }
     void EnableFlapToRestart()
     {

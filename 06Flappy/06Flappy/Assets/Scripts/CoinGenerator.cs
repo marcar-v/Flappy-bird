@@ -8,9 +8,9 @@ public class CoinGenerator : MonoBehaviour
 
     private GameObject[] coin;
 
-    private float coinMin = -2.9f;
-    private float columnMax = 1.4f;
-    private float spawnXPosition = 10f;
+    private float coinMin = -2f;
+    private float coinMax = 4f;
+    private float spawnXPosition = 12f;
 
     public GameObject coinPrefab;
     private Vector2 objectPoolPosition = new Vector2(-14, 0);
@@ -28,7 +28,7 @@ public class CoinGenerator : MonoBehaviour
         {
             coin[i] = Instantiate(coinPrefab, objectPoolPosition, Quaternion.identity);
         }
-        SpawnColumn();
+        SpawnCoin();
     }
 
     // Update is called once per frame
@@ -38,13 +38,13 @@ public class CoinGenerator : MonoBehaviour
         if (!GameController.instance.gameOver && timeSinceLastSpawn >= spawnRate)
         {
             timeSinceLastSpawn = 0;
-            SpawnColumn();
+            SpawnCoin();
         }
 
     }
-    private void SpawnColumn()
+    public void SpawnCoin()
     {
-        float spawnYPosition = Random.Range(coinMin, columnMax);
+        float spawnYPosition = Random.Range(coinMin, coinMax);
         coin[currentCoin].transform.position = new Vector2(spawnXPosition, spawnYPosition);
         currentCoin++;
         if (currentCoin >= coinPoolSize)
