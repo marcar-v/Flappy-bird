@@ -25,8 +25,9 @@ public class GameController : MonoBehaviour
 
     public float time = 0;
     public bool gameTime = true;
+
     [SerializeField] Text bestTimeText;
-    private GameTime gameTimeScript;
+    private float bestTime;
 
     private void Awake()
     {
@@ -44,7 +45,7 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         highScoreText.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
-        bestTimeText.text = PlayerPrefs.GetFloat("BestTime", 0).ToString();
+        bestTimeText.text = PlayerPrefs.GetFloat("BestTime", 0).ToString("f3");
     }
 
     public void BirdScored()
@@ -77,14 +78,12 @@ public class GameController : MonoBehaviour
     }
     public void UpdateBestTime()
     {
-        float minutes = time / 60;
-        float seconds = Mathf.Floor(time % 60);
-        if (time > PlayerPrefs.GetFloat("BestTime"))
+        if (time > bestTime)
         {
-            PlayerPrefs.SetFloat("BestTime", time);
+            bestTime = time;
+            PlayerPrefs.SetFloat("BestTime", bestTime);
             PlayerPrefs.Save();
-            bestTimeText.text = "Best time:" + minutes.ToString("00") + ":" + seconds.ToString("00");
-            //bestTimeText.text = "Best time: " + PlayerPrefs.GetFloat("BestTime");
+            bestTimeText.text = "Best time: " + PlayerPrefs.GetFloat("BestTime");
         }
     }
     public void BirdDie()
