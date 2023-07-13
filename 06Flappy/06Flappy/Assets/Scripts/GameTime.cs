@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +7,8 @@ public class GameTime : MonoBehaviour
 {
     public Text timeText;
     private GameController gameController;
+    public string minutes;
+    public string seconds;
     void Start()
     {
         timeText.text = "Time: 00:00";
@@ -35,8 +36,8 @@ public class GameTime : MonoBehaviour
             gameController.time += Time.deltaTime;
         }
 
-        string minutes = Mathf.Floor(gameController.time / 60).ToString("00");
-        string seconds = Mathf.Floor(gameController.time % 60).ToString("00");
+        minutes = Mathf.Floor(gameController.time / 60).ToString("00");
+        seconds = Mathf.Floor(gameController.time % 60).ToString("00");
 
         return minutes + ":" + seconds;
     }

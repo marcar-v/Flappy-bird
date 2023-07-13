@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -26,8 +25,12 @@ public class GameController : MonoBehaviour
     public float time = 0;
     public bool gameTime = true;
 
-    [SerializeField] Text bestTimeText;
+    [SerializeField] Text bestTimeMinutesText;
+    [SerializeField] Text bestTimeSecondsText;
     private float bestTime;
+    [SerializeField] float bestTimeMinutes;
+    [SerializeField] float bestTimeSeconds;
+    [SerializeField] GameTime gameTimeInstance;
 
     private void Awake()
     {
@@ -45,7 +48,9 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         highScoreText.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
-        bestTimeText.text = PlayerPrefs.GetFloat("BestTime", 0).ToString("f3");
+        bestTime = PlayerPrefs.GetFloat("BestTime");
+        bestTimeMinutesText.text = PlayerPrefs.GetString("BestTimeMinutes");
+        bestTimeSecondsText.text = PlayerPrefs.GetString("BestTimeSeconds");
     }
 
     public void BirdScored()
@@ -82,14 +87,18 @@ public class GameController : MonoBehaviour
         {
             bestTime = time;
             PlayerPrefs.SetFloat("BestTime", bestTime);
+            PlayerPrefs.SetString("BestTimeMinutes", gameTimeInstance.minutes);
+            PlayerPrefs.SetString("BestTimeSeconds", gameTimeInstance.seconds);
             PlayerPrefs.Save();
-            bestTimeText.text = "Best time: " + PlayerPrefs.GetFloat("BestTime");
+            bestTimeMinutesText.text = gameTimeInstance.minutes;
+            bestTimeSecondsText.text = gameTimeInstance.seconds;
         }
     }
     public void BirdDie()
     {
         highScoreText.text = "High Score: " + PlayerPrefs.GetInt("HighScore");
-        bestTimeText.text = "Best time: " + PlayerPrefs.GetFloat("BestTime");
+        bestTimeMinutesText.text = PlayerPrefs.GetString("BestTimeMinutes");
+        bestTimeSecondsText.text = PlayerPrefs.GetString("BestTimeSeconds");
         gameOverText.SetActive(true);
         gameOver = true;
     }
