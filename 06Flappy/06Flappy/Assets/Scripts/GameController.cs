@@ -65,7 +65,6 @@ public class GameController : MonoBehaviour
             UpdateBestTime();
         }
     }
-
     public void ItemScore()
     { 
         score = score + itemScore;
